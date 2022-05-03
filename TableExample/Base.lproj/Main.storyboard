@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--TableVC-->
+        <!--Table-->
         <scene sceneID="KPA-gJ-WHG">
             <objects>
                 <viewController id="YQF-af-DRc" customClass="TableVC" customModule="TableExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,22 +16,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGN-Q3-R1R">
-                                <rect key="frame" x="173.5" y="432.5" width="67" height="31"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MgX-Zh-3zN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableCell" id="3Y5-as-Cjz">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Y5-as-Cjz" id="syw-Ac-1Gn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <action selector="ShowDetailVC:" destination="YQF-af-DRc" eventType="touchUpInside" id="D9u-6k-QvL"/>
+                                    <outlet property="dataSource" destination="YQF-af-DRc" id="MHc-r0-Pjp"/>
+                                    <outlet property="delegate" destination="YQF-af-DRc" id="oiJ-tb-6Ki"/>
                                 </connections>
-                            </button>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z1g-Lt-1jL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="pGN-Q3-R1R" firstAttribute="centerY" secondItem="Bk6-AE-E8f" secondAttribute="centerY" id="T2e-SN-lQQ"/>
-                            <constraint firstItem="pGN-Q3-R1R" firstAttribute="centerX" secondItem="Bk6-AE-E8f" secondAttribute="centerX" id="cyn-Bh-jmw"/>
+                            <constraint firstItem="MgX-Zh-3zN" firstAttribute="leading" secondItem="z1g-Lt-1jL" secondAttribute="leading" id="2lO-UD-t2j"/>
+                            <constraint firstItem="MgX-Zh-3zN" firstAttribute="top" secondItem="Bk6-AE-E8f" secondAttribute="topMargin" id="Ljs-2R-iPY"/>
+                            <constraint firstItem="z1g-Lt-1jL" firstAttribute="bottom" secondItem="MgX-Zh-3zN" secondAttribute="bottom" id="fwf-85-PHf"/>
+                            <constraint firstItem="z1g-Lt-1jL" firstAttribute="trailing" secondItem="MgX-Zh-3zN" secondAttribute="trailing" id="tSM-tu-HfW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xl1-aq-9HA"/>
+                    <navigationItem key="navigationItem" title="Table" id="xl1-aq-9HA"/>
                     <connections>
                         <segue destination="5t2-O8-bTy" kind="show" identifier="ShowDetail" id="ZHn-Kn-B4S"/>
                     </connections>
@@ -47,10 +60,25 @@
                     <view key="view" contentMode="scaleToFill" id="QUD-yC-R37">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOV-Oi-oZI">
+                                <rect key="frame" x="186" y="437.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="TUQ-eN-ere"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qOV-Oi-oZI" firstAttribute="centerX" secondItem="QUD-yC-R37" secondAttribute="centerX" id="GCU-Jr-fGc"/>
+                            <constraint firstItem="qOV-Oi-oZI" firstAttribute="centerY" secondItem="QUD-yC-R37" secondAttribute="centerY" id="iRE-aL-loD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zyg-JT-TKG"/>
+                    <connections>
+                        <outlet property="DetailLabel" destination="qOV-Oi-oZI" id="N65-Hd-WQ2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EL7-67-yMz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -61,8 +89,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FlE-AW-A6t" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Adh-uO-NPK">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Adh-uO-NPK">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -11,21 +11,29 @@ class TableVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func ShowDetailVC(_ sender: Any) {
-        performSegue(withIdentifier: "ShowDetail", sender: nil)
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let destVC = segue.destination as! TableDetailVC
+        destVC.detailLabelText = sender as? String
     }
-    */
+}
 
+extension TableVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        50
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") else {
+            return UITableViewCell()
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailLabelText = String(indexPath.row)
+        performSegue(withIdentifier: "ShowDetail", sender: detailLabelText)
+    }
 }
