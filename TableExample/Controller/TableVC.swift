@@ -23,13 +23,19 @@ class TableVC: UIViewController {
         let urlString = "https://api.publicapis.org/entries"
         
         if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url) {
-                // we're OK to parse!
-                parse(json: data)
-            }
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let data = data {
+                    self.parse(json: data)
+                }
+            }.resume()
         }
+        
         addImages()
-        print(data?.count)
+
+        // TODO: does not update the view
+        if let data = data {
+            self.title = String(data.count) + " Items"
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,9 +58,6 @@ class TableVC: UIViewController {
         
         if let jsonResult = try? decoder.decode(CodableExample.self, from: json) {
             data = jsonResult
-            if let newTitle = data?.count {
-                self.title = String(newTitle) + " Items"
-            }
         }
     }
 }
@@ -65,6 +68,7 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // TODO: Cells only updated when they came to foreground
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableViewCell
         
         cell.TableViewCellLabel.text = data?.entries[indexPath.row].API
