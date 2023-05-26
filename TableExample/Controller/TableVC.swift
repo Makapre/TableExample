@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Alamofire
+import Kingfisher
 
 class TableVC: UIViewController {
     
@@ -18,19 +20,24 @@ class TableVC: UIViewController {
     
     var images = [UIImageView]()
     var data: CodableExample?
+    
+    func fetchData() {
+        AF.request("https://api.publicapis.org/entries")
+            .validate()
+            .responseDecodable(of: CodableExample.self) { response in
+            guard let data = response.value else { return }
+            self.data = data
+            OperationQueue.main.addOperation {
+                self.title = String(data.count) + " Items"
+                self.addImages(data.count)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let urlString = "https://api.publicapis.org/entries"
-                
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    self.parse(json: data)
-                }
-            }.resume()
-        }
+        self.title = "Loading..."
+        fetchData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,24 +50,15 @@ class TableVC: UIViewController {
     func addImages(_ count: Int){
         for _ in 0..<(count) {
             let image = UIImageView()
-            image.load(url: URL(string: "https://picsum.photos/200/300")!)
+            let url = URL(string: "https://picsum.photos/200/300")
+            // own UIImageView extension
+            //image.load(url: url!)
+            
+            // Kingfisher saves image in cache, not what I want for now, but good to know
+            image.kf.setImage(with: url)
             images.append(image)
         }
         self.tableView.reloadData()
-    }
-    
-    func parse(json: Data) {
-        let decoder = JSONDecoder()
-        
-        if let jsonResult = try? decoder.decode(CodableExample.self, from: json) {
-            data = jsonResult
-            if let data = data {
-                OperationQueue.main.addOperation {
-                    self.title = String(data.count) + " Items"
-                    self.addImages(data.count)
-                }
-            }
-        }
     }
 }
 
