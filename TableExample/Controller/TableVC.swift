@@ -9,6 +9,8 @@ import UIKit
 
 class TableVC: UIViewController {
     
+    @IBOutlet var tableView: UITableView!
+    
     struct Sender {
         var label: String
         var image: UIImageView
@@ -21,20 +23,13 @@ class TableVC: UIViewController {
         super.viewDidLoad()
         
         let urlString = "https://api.publicapis.org/entries"
-        
+                
         if let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                     self.parse(json: data)
                 }
             }.resume()
-        }
-        
-        addImages()
-
-        // TODO: does not update the view
-        if let data = data {
-            self.title = String(data.count) + " Items"
         }
     }
     
@@ -45,12 +40,13 @@ class TableVC: UIViewController {
         destVC.detailImage = s.image
     }
     
-    func addImages(){
-        for _ in 0..<(data?.count ?? 50) {
+    func addImages(_ count: Int){
+        for _ in 0..<(count) {
             let image = UIImageView()
             image.load(url: URL(string: "https://picsum.photos/200/300")!)
             images.append(image)
         }
+        self.tableView.reloadData()
     }
     
     func parse(json: Data) {
@@ -58,17 +54,23 @@ class TableVC: UIViewController {
         
         if let jsonResult = try? decoder.decode(CodableExample.self, from: json) {
             data = jsonResult
+            if let data = data {
+                OperationQueue.main.addOperation {
+                    self.title = String(data.count) + " Items"
+                    self.addImages(data.count)
+                }
+            }
         }
     }
 }
 
 extension TableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data?.count ?? 50
+        guard let data = data else { return 0 }
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: Cells only updated when they came to foreground
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableViewCell
         
         cell.TableViewCellLabel.text = data?.entries[indexPath.row].API
@@ -79,7 +81,7 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailLabelText = String(indexPath.row)
+        let detailLabelText = data?.entries[indexPath.row].Description ?? String(indexPath.row)
         performSegue(withIdentifier: "ShowDetail", sender: Sender(label: detailLabelText, image: images[indexPath.row]))
     }
 }
