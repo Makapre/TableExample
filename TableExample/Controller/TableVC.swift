@@ -27,9 +27,10 @@ class TableVC: UIViewController {
             .responseDecodable(of: CodableExample.self) { response in
             guard let data = response.value else { return }
             self.data = data
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
+                dump(String(data.count) + " Items")
                 self.title = String(data.count) + " Items"
-                self.addImages(data.count)
+                self.tableView.reloadData()
             }
         }
     }
@@ -46,20 +47,6 @@ class TableVC: UIViewController {
         destVC.detailLabelText = s.label
         destVC.detailImage = s.image
     }
-    
-    func addImages(_ count: Int){
-        for _ in 0..<(count) {
-            let image = UIImageView()
-            let url = URL(string: "https://picsum.photos/200/300")
-            // own UIImageView extension
-            //image.load(url: url!)
-            
-            // Kingfisher saves image in cache, not what I want for now, but good to know
-            image.kf.setImage(with: url)
-            images.append(image)
-        }
-        self.tableView.reloadData()
-    }
 }
 
 extension TableVC: UITableViewDelegate, UITableViewDataSource {
@@ -70,10 +57,17 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableViewCell
+        let url = URL(string: "https://picsum.photos/200/300")
         
         cell.TableViewCellLabel.text = data?.entries[indexPath.row].API
         cell.TableViewSecondLabel.text = data?.entries[indexPath.row].Category
-        cell.TableViewCellImage.image = images[indexPath.row].image
+        
+        // w/ caching and kingfisher
+        cell.TableViewCellImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+        
+//        own implementation, without caching, loads image new when scrolling and the cell is again visible
+//        cell.TableViewCellImage.setImageFromUrl(url: url!)
+//        cell.TableViewCellImage.load(url: url!)
         
         return cell
     }
