@@ -6,19 +6,24 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TableDetailVC: UIViewController {
     
     var detailLabelText: String?
-    var detailImage: UIImageView?
+    var url: URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         DetailLabel.text = detailLabelText
-        DetailImage.image = detailImage?.image
+        // w/ caching
+        //DetailImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+        
+        // native implementation
+        DetailImage.setImageFromUrl(url: url!)
+        DetailImage.load(url: url!)
     }
     
-
     @IBOutlet var DetailImage: UIImageView!
     @IBOutlet var DetailLabel: UILabel!
 }
