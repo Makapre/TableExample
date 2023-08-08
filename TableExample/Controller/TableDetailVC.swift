@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SwiftUI
 
 class TableDetailVC: UIViewController {
     
@@ -22,6 +23,28 @@ class TableDetailVC: UIViewController {
         // native implementation
         DetailImage.setImageFromUrl(url: url!)
         DetailImage.load(url: url!)
+        
+        // 1
+        let vc = UIHostingController(rootView: ButtonView())
+        
+        let buttonView = vc.view!
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 2
+        // Add the view controller to the destination view controller.
+        addChild(vc)
+        view.addSubview(buttonView)
+        
+        // 3
+        // Create and activate the constraints for the swiftui's view.
+        NSLayoutConstraint.activate([
+            buttonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonView.topAnchor.constraint(equalTo: self.view.topAnchor),
+        ])
+        
+        // 4
+        // Notify the child view controller that the move is complete.
+        vc.didMove(toParent: self)
     }
     
     @IBOutlet var DetailImage: UIImageView!
