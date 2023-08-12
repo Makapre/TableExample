@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FlE-AW-A6t">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MgX-Zh-3zN">
-                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableCell" id="3Y5-as-Cjz" customClass="TableViewCell" customModule="TableExample" customModuleProvider="target">
@@ -101,30 +100,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOV-Oi-oZI">
-                                <rect key="frame" x="186" y="438" width="42" height="20.5"/>
+                                <rect key="frame" x="186" y="438" width="42" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZJm-WX-VH6">
-                                <rect key="frame" x="0.0" y="478.5" width="414" height="383.5"/>
+                                <rect key="frame" x="0.0" y="478" width="414" height="384"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="switchButton" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTX-qH-t0a">
+                                <rect key="frame" x="170" y="334" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="switch" translatesAutoresizingMaskIntoConstraints="NO" id="epH-hr-AlE">
+                                <rect key="frame" x="297" y="338" width="51" height="31"/>
+                                <connections>
+                                    <action selector="didSwitch:" destination="5t2-O8-bTy" eventType="valueChanged" id="hCQ-dj-VX3"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TUQ-eN-ere"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="TUQ-eN-ere" firstAttribute="trailing" secondItem="CTX-qH-t0a" secondAttribute="trailing" constant="169" id="116-o2-e1J"/>
                             <constraint firstItem="qOV-Oi-oZI" firstAttribute="centerX" secondItem="QUD-yC-R37" secondAttribute="centerX" id="5J4-Lt-zpY"/>
                             <constraint firstItem="TUQ-eN-ere" firstAttribute="trailing" secondItem="ZJm-WX-VH6" secondAttribute="trailing" id="GFB-J9-Mkm"/>
+                            <constraint firstItem="ZJm-WX-VH6" firstAttribute="top" secondItem="epH-hr-AlE" secondAttribute="bottom" constant="109" id="ISm-Km-Srq"/>
+                            <constraint firstItem="TUQ-eN-ere" firstAttribute="trailing" secondItem="epH-hr-AlE" secondAttribute="trailing" constant="68" id="MUS-Bf-pIW"/>
                             <constraint firstItem="ZJm-WX-VH6" firstAttribute="leading" secondItem="TUQ-eN-ere" secondAttribute="leading" id="MY4-25-D93"/>
                             <constraint firstItem="TUQ-eN-ere" firstAttribute="bottom" secondItem="ZJm-WX-VH6" secondAttribute="bottom" id="N0M-vB-AxN"/>
                             <constraint firstItem="ZJm-WX-VH6" firstAttribute="top" secondItem="qOV-Oi-oZI" secondAttribute="bottom" constant="20" id="QC5-RV-SsO"/>
                             <constraint firstItem="qOV-Oi-oZI" firstAttribute="centerY" secondItem="QUD-yC-R37" secondAttribute="centerY" id="naA-cx-g9r"/>
+                            <constraint firstItem="qOV-Oi-oZI" firstAttribute="top" secondItem="CTX-qH-t0a" secondAttribute="bottom" constant="69" id="xpB-e0-Qps"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zyg-JT-TKG"/>
                     <connections>
                         <outlet property="DetailImage" destination="ZJm-WX-VH6" id="eVZ-cH-jje"/>
                         <outlet property="DetailLabel" destination="qOV-Oi-oZI" id="N65-Hd-WQ2"/>
+                        <outlet property="switchButton" destination="CTX-qH-t0a" id="tfZ-2p-Jyy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EL7-67-yMz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

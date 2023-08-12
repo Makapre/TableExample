@@ -8,21 +8,31 @@
 import UIKit
 import Kingfisher
 import SwiftUI
+import Combine
 
 class TableDetailVC: UIViewController {
     
+    @Published var buttonEnabled: Bool = false
+    
     var detailLabelText: String?
     var url: URL?
+    
+    private var switchSubscriber: AnyCancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         DetailLabel.text = detailLabelText
+        
+        // MARK: setting image native and w/ library
         // w/ caching
         //DetailImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
         
         // native implementation
         DetailImage.setImageFromUrl(url: url!)
         DetailImage.load(url: url!)
+        
+        // MARK: Add SwiftUI View to UIKit
         
         // 1
         let vc = UIHostingController(rootView: ButtonView())
@@ -45,8 +55,19 @@ class TableDetailVC: UIViewController {
         // 4
         // Notify the child view controller that the move is complete.
         vc.didMove(toParent: self)
+        
+        // MARK: Combine
+//        switchSubscriber = $buttonEnabled.sink { print("Received \($0)") }
+        switchSubscriber = $buttonEnabled
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: switchButton)
+    }
+    
+    @IBAction func didSwitch(_ sender: UISwitch) {
+        buttonEnabled = sender.isOn
     }
     
     @IBOutlet var DetailImage: UIImageView!
     @IBOutlet var DetailLabel: UILabel!
+    @IBOutlet weak var switchButton: UIButton!
 }
