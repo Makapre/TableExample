@@ -17,6 +17,8 @@ class TableDetailVC: UIViewController {
     var detailLabelText: String?
     var url: URL?
     
+    // Save the cancellable subscription.
+    private var subscribers: [AnyCancellable] = []
     private var switchSubscriber: AnyCancellable?
 
     override func viewDidLoad() {
@@ -57,10 +59,11 @@ class TableDetailVC: UIViewController {
         vc.didMove(toParent: self)
         
         // MARK: Combine
-//        switchSubscriber = $buttonEnabled.sink { print("Received \($0)") }
-        switchSubscriber = $buttonEnabled
+        switchSubscriber = $buttonEnabled.sink { print("Received \($0)") }
+        $buttonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: switchButton)
+            .store(in: &subscribers)
     }
     
     @IBAction func didSwitch(_ sender: UISwitch) {
