@@ -21,6 +21,8 @@
 		F7334829282065F400B1A171 /* TableDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7334828282065F400B1A171 /* TableDetailVC.swift */; };
 		F7A4BFCE2A211B64001D6FA5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F7A4BFCD2A211B64001D6FA5 /* Alamofire */; };
 		F7A4BFD12A211DB5001D6FA5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F7A4BFD02A211DB5001D6FA5 /* Kingfisher */; };
+		F7F13E972AA9032500AE8EE3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F13E962AA9032500AE8EE3 /* SwiftUIView.swift */; };
+		F7F13E992AA9038D00AE8EE3 /* SwiftUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F13E982AA9038D00AE8EE3 /* SwiftUIVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		F7334820282064F000B1A171 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F73348262820653500B1A171 /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
 		F7334828282065F400B1A171 /* TableDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDetailVC.swift; sourceTree = "<group>"; };
+		F7F13E962AA9032500AE8EE3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		F7F13E982AA9038D00AE8EE3 /* SwiftUIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 				F733481D282064F000B1A171 /* LaunchScreen.storyboard */,
 				F70815692822917A00EA74E5 /* TableViewCell.swift */,
 				F708E3932A78251900A43DF3 /* Detail.swift */,
+				F7F13E962AA9032500AE8EE3 /* SwiftUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -111,6 +116,7 @@
 			children = (
 				F73348262820653500B1A171 /* TableVC.swift */,
 				F7334828282065F400B1A171 /* TableDetailVC.swift */,
+				F7F13E982AA9038D00AE8EE3 /* SwiftUIVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -206,6 +212,8 @@
 				F708156A2822917A00EA74E5 /* TableViewCell.swift in Sources */,
 				F708E3942A78251900A43DF3 /* Detail.swift in Sources */,
 				F73348272820653500B1A171 /* TableVC.swift in Sources */,
+				F7F13E972AA9032500AE8EE3 /* SwiftUIView.swift in Sources */,
+				F7F13E992AA9038D00AE8EE3 /* SwiftUIVC.swift in Sources */,
 				F7334813282064ED00B1A171 /* AppDelegate.swift in Sources */,
 				F708156C2822A1EF00EA74E5 /* UIImage+Ext.swift in Sources */,
 				F7334829282065F400B1A171 /* TableDetailVC.swift in Sources */,
