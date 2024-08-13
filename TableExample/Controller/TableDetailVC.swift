@@ -24,15 +24,15 @@ class TableDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DetailLabel.text = detailLabelText
+        DetailLabel?.text = detailLabelText
         
         // MARK: setting image native and w/ library
         // w/ caching
         //DetailImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
         
         // native implementation
-        DetailImage.setImageFromUrl(url: url!)
-        DetailImage.load(url: url!)
+        DetailImage?.setImageFromUrl(url: url!)
+        DetailImage?.load(url: url!)
         
         // MARK: Add SwiftUI View to UIKit
         
@@ -59,18 +59,26 @@ class TableDetailVC: UIViewController {
         vc.didMove(toParent: self)
         
         // MARK: Combine
-        switchSubscriber = $buttonEnabled.sink { print("Received \($0)") }
-        $buttonEnabled
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: switchButton)
-            .store(in: &subscribers)
+        switchSubscriber = $buttonEnabled.sink { print("Received \($0)")
+        }
+        if let switchButton {
+            $buttonEnabled
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.isEnabled, on: switchButton)
+                .store(in: &subscribers)
+        }
     }
     
     @IBAction func didSwitch(_ sender: UISwitch) {
         buttonEnabled = sender.isOn
     }
     
-    @IBOutlet var DetailImage: UIImageView!
-    @IBOutlet var DetailLabel: UILabel!
-    @IBOutlet weak var switchButton: UIButton!
+    @IBOutlet var DetailImage: UIImageView?
+    @IBOutlet var DetailLabel: UILabel?
+    @IBOutlet weak var switchButton: UIButton?
+}
+
+@available(iOS 17, *)
+#Preview {
+    TableDetailVC()
 }

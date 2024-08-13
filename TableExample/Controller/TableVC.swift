@@ -77,3 +77,8 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "ShowDetail", sender: Sender(label: detailLabelText, url: url!))
     }
 }
+
+@available(iOS 17, *)
+#Preview {
+    TableVC()
+}

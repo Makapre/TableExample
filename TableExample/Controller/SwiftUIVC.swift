@@ -38,3 +38,8 @@ class SwiftUIVC: UIViewController {
         vc.didMove(toParent: self)
     }
 }
+
+@available(iOS 17, *)
+#Preview {
+    SwiftUIVC()
+}
